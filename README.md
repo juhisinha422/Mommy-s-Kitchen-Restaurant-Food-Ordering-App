@@ -249,6 +249,10 @@ sudo mysql -e "USE mommyskitchen; SELECT * FROM Orders;"
 
 ---
 
+## Screenshots
+
+<img width="1892" height="940" alt="Image" src="https://github.com/user-attachments/assets/42a71744-bfe4-42dc-8785-2d13b0ed50a9" />
+
 ## 👩‍💻 Author
 **Juhi Sinha** — DevOps Engineer 
 
