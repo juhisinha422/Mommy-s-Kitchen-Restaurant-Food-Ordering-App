@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+         http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+  <welcome-file-list>
+    <welcome-file>welcome.html</welcome-file>
+  </welcome-file-list>
+
+</web-app>
+
+  <welcome-file-list>
+    <welcome-file>welcome.html</welcome-file>
+  </welcome-file-list>
+
+  <!-- ── MANAGER REGISTRATION ─────────────────── -->
+  <servlet>
+    <servlet-name>reg1</servlet-name>
+    <servlet-class>test.RegServlet1</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>reg1</servlet-name>
+    <url-pattern>/reg1</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>reg2</servlet-name>
+    <servlet-class>test.RegServlet12</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>reg2</servlet-name>
+    <url-pattern>/reg2</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>final</servlet-name>
+    <servlet-class>test.FinalRegServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>final</servlet-name>
+    <url-pattern>/final</url-pattern>
+  </servlet-mapping>
+
+  <!-- ── MANAGER LOGIN ─────────────────────────── -->
+  <servlet>
+    <servlet-name>log</servlet-name>
+    <servlet-class>test.LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>log</servlet-name>
+    <url-pattern>/log</url-pattern>
+  </servlet-mapping>
+
+  <!-- ── CUSTOMER REGISTRATION ─────────────────── -->
+  <servlet>
+    <servlet-name>creg1</servlet-name>
+    <servlet-class>test.CRegServlet1</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>creg1</servlet-name>
+    <url-pattern>/creg1</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>creg2</servlet-name>
+    <servlet-class>test.CRegServlet2</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>creg2</servlet-name>
+    <url-pattern>/creg2</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>cfinal</servlet-name>
+    <servlet-class>test.CFinalRegServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>cfinal</servlet-name>
+    <url-pattern>/cfinal</url-pattern>
+  </servlet-mapping>
+
+  <!-- ── CUSTOMER LOGIN ────────────────────────── -->
+  <servlet>
+    <servlet-name>clog</servlet-name>
+    <servlet-class>test.CLoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>clog</servlet-name>
+    <url-pattern>/clog</url-pattern>
+  </servlet-mapping>
+
+  <!-- ── ADD DISH ───────────────────────────────── -->
+  <servlet>
+    <servlet-name>finaldish</servlet-name>
+    <servlet-class>test.AddDishServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>finaldish</servlet-name>
+    <url-pattern>/finaldish</url-pattern>
+  </servlet-mapping>
+
+  <!-- ── VIEW DISH ──────────────────────────────── -->
+  <servlet>
+    <servlet-name>viewdish</servlet-name>
+    <servlet-class>test.CViewProductsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>viewdish</servlet-name>
+    <url-pattern>/viewdish</url-pattern>
+  </servlet-mapping>
+
+  <!-- ── LOGOUT ────────────────────────────────── -->
+  <servlet>
+    <servlet-name>logout</servlet-name>
+    <servlet-class>test.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>logout</servlet-name>
+    <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+
+</web-app>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Create Account | Mommy's Kitchen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:      #0d0d0d;
+      --surface: #1a1a1a;
+      --border:  rgba(255,255,255,0.08);
+      --accent:  #e8943a;
+      --text:    #f0f0f0;
+      --muted:   #777;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg); color: var(--text);
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px; position: relative; overflow: hidden;
+    }
+
+    body::before, body::after {
+      content: ''; position: fixed; border-radius: 50%;
+      filter: blur(90px); opacity: 0.15; pointer-events: none; z-index: 0;
+    }
+    body::before {
+      width: 500px; height: 500px; background: var(--accent);
+      top: -160px; left: -160px;
+    }
+    body::after {
+      width: 400px; height: 400px; background: #c0392b;
+      bottom: -120px; right: -120px;
+    }
+
+    .back-link {
+      position: fixed; top: 24px; left: 28px; z-index: 10;
+      color: var(--muted); text-decoration: none;
+      font-size: 0.85rem; display: flex; align-items: center; gap: 6px;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px; padding: 48px 40px;
+      width: 100%; max-width: 460px;
+      position: relative; z-index: 1;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    }
+
+    /* Progress bar — step 2 */
+    .progress-wrap { margin-bottom: 32px; }
+    .progress-label {
+      display: flex; justify-content: space-between;
+      font-size: 0.72rem; color: var(--muted);
+      margin-bottom: 8px; letter-spacing: 0.5px;
+    }
+    .progress-label span.active { color: var(--accent); font-weight: 600; }
+    .progress-track {
+      height: 4px; background: var(--border); border-radius: 4px; overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%; width: 100%;
+      background: linear-gradient(90deg, var(--accent), #2ed573);
+      border-radius: 4px;
+    }
+
+    /* Step indicators */
+    .steps {
+      display: flex; justify-content: center;
+      gap: 12px; margin-bottom: 24px;
+    }
+    .step {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.78rem; color: var(--muted);
+    }
+    .step-dot {
+      width: 26px; height: 26px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; font-weight: 700;
+      background: var(--border); color: var(--muted);
+    }
+    .step.done .step-dot {
+      background: rgba(46,213,115,0.15); color: #2ed573;
+    }
+    .step.active .step-dot {
+      background: linear-gradient(135deg, var(--accent), #d4782a);
+      color: #0d0d0d;
+    }
+    .step.active { color: var(--text); font-weight: 500; }
+    .step-line { width: 30px; height: 1px; background: var(--border); }
+
+    /* Brand */
+    .brand { text-align: center; margin-bottom: 26px; }
+    .brand-icon {
+      width: 60px; height: 60px;
+      background: linear-gradient(135deg, var(--accent), #c0392b);
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin: 0 auto 12px;
+      box-shadow: 0 8px 24px rgba(232,148,58,0.3);
+    }
+    .brand h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; font-weight: 700;
+    }
+    .brand h2 span { color: var(--accent); }
+    .brand p { color: var(--muted); font-size: 0.82rem; margin-top: 5px; }
+
+    /* Divider */
+    .divider {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 22px;
+    }
+    .divider::before, .divider::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+    .divider span { color: var(--muted); font-size: 0.72rem; letter-spacing: 1px; }
+
+    /* Form */
+    .form-group { margin-bottom: 16px; }
+    .form-group label {
+      display: block; font-size: 0.75rem; font-weight: 500;
+      color: var(--muted); margin-bottom: 7px;
+      letter-spacing: 0.5px; text-transform: uppercase;
+    }
+    .input-wrap { position: relative; }
+    .input-wrap i.ico {
+      position: absolute; left: 14px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted); font-size: 0.85rem; pointer-events: none;
+    }
+    .input-wrap input, .input-wrap textarea {
+      width: 100%; padding: 13px 16px 13px 40px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 12px; color: var(--text);
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.9rem; outline: none;
+      transition: border-color 0.25s, background 0.25s;
+    }
+    .input-wrap textarea {
+      resize: none; height: 80px;
+      padding-top: 12px; line-height: 1.5;
+    }
+    .input-wrap input:focus, .input-wrap textarea:focus {
+      border-color: var(--accent);
+      background: rgba(232,148,58,0.05);
+    }
+    .input-wrap input::placeholder,
+    .input-wrap textarea::placeholder { color: #3a3a3a; }
+
+    /* hint text */
+    .hint { font-size: 0.72rem; color: var(--muted); margin-top: 5px; padding-left: 2px; }
+
+    /* Submit */
+    .btn-register {
+      width: 100%; padding: 15px;
+      background: linear-gradient(135deg, #2ed573, #1abc9c);
+      color: #0d0d0d;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.95rem; font-weight: 700;
+      border: none; border-radius: 12px;
+      cursor: pointer; margin-top: 10px;
+      letter-spacing: 0.5px;
+      transition: opacity 0.25s, transform 0.2s, box-shadow 0.25s;
+      box-shadow: 0 6px 20px rgba(46,213,117,0.25);
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-register:hover {
+      opacity: 0.9; transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(46,213,117,0.4);
+    }
+    .btn-register:active { transform: translateY(0); }
+
+    .form-foot {
+      text-align: center; margin-top: 20px;
+      font-size: 0.82rem; color: var(--muted);
+    }
+    .form-foot a { color: var(--accent); text-decoration: none; font-weight: 500; }
+    .form-foot a:hover { text-decoration: underline; }
+
+    @media (max-width: 480px) {
+      .card { padding: 36px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="cinput1.html" class="back-link">
+    <i class="fa fa-arrow-left"></i> Back to Step 1
+  </a>
+
+  <div class="card">
+
+    <!-- Progress -->
+    <div class="progress-wrap">
+      <div class="progress-label">
+        <span>Step 1 — Account Info ✓</span>
+        <span class="active">Step 2 — Contact Details</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill"></div></div>
+    </div>
+
+    <!-- Step indicators -->
+    <div class="steps">
+      <div class="step done">
+        <div class="step-dot"><i class="fa fa-check" style="font-size:0.65rem"></i></div>
+        Account
+      </div>
+      <div class="step-line"></div>
+      <div class="step active">
+        <div class="step-dot">2</div>
+        Contact
+      </div>
+    </div>
+
+    <div class="brand">
+      <div class="brand-icon">📍</div>
+      <h2>Almost <span>There!</span></h2>
+      <p>Just a few more details for delivery</p>
+    </div>
+
+    <div class="divider"><span>CONTACT & DELIVERY INFO</span></div>
+
+    <form action="creg2" method="post">
+
+      <div class="form-group">
+        <label>Email Address</label>
+        <div class="input-wrap">
+          <i class="fa fa-envelope ico"></i>
+          <input type="email" name="cmid" placeholder="you@example.com" required/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Phone Number</label>
+        <div class="input-wrap">
+          <i class="fa fa-phone ico"></i>
+          <input type="tel" name="cmob" placeholder="+91 98765 43210" required/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Location / Area</label>
+        <div class="input-wrap">
+          <i class="fa fa-map-pin ico"></i>
+          <input type="text" name="cloc" placeholder="e.g. Bandra, Mumbai" required/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Full Delivery Address</label>
+        <div class="input-wrap">
+          <i class="fa fa-location-dot ico" style="top:18px;transform:none;"></i>
+          <textarea name="caddr" placeholder="House/Flat no., Street, City, Pincode" required></textarea>
+        </div>
+        <p class="hint"><i class="fa fa-circle-info"></i> &nbsp;We'll deliver your order to this address</p>
+      </div>
+
+      <button type="submit" class="btn-register">
+        <i class="fa fa-check-circle"></i> Complete Registration
+      </button>
+    </form>
+
+    <div class="form-foot">
+      Already have an account? &nbsp;<a href="Clogin.html">Sign In</a>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Customer Login | Mommy's Kitchen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:      #0d0d0d;
+      --surface: #1a1a1a;
+      --border:  rgba(255,255,255,0.08);
+      --accent:  #e8943a;
+      --text:    #f0f0f0;
+      --muted:   #777;
+      --error:   #e74c3c;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Ambient glow blobs */
+    body::before, body::after {
+      content: '';
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.18;
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::before {
+      width: 500px; height: 500px;
+      background: var(--accent);
+      top: -150px; left: -150px;
+    }
+    body::after {
+      width: 400px; height: 400px;
+      background: #c0392b;
+      bottom: -100px; right: -100px;
+    }
+
+    /* Back link */
+    .back-link {
+      position: fixed; top: 24px; left: 28px; z-index: 10;
+      color: var(--muted); text-decoration: none;
+      font-size: 0.85rem; display: flex; align-items: center; gap: 6px;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    /* Card */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 48px 40px;
+      width: 100%; max-width: 420px;
+      position: relative; z-index: 1;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    }
+
+    /* Logo */
+    .brand {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .brand-icon {
+      width: 64px; height: 64px;
+      background: linear-gradient(135deg, var(--accent), #c0392b);
+      border-radius: 18px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+      margin: 0 auto 16px;
+      box-shadow: 0 8px 24px rgba(232,148,58,0.35);
+    }
+    .brand h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; font-weight: 700;
+      color: var(--text);
+    }
+    .brand h1 span { color: var(--accent); }
+    .brand p {
+      color: var(--muted); font-size: 0.82rem; margin-top: 6px;
+    }
+
+    /* Divider */
+    .divider {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 28px;
+    }
+    .divider::before, .divider::after {
+      content: ''; flex: 1;
+      height: 1px; background: var(--border);
+    }
+    .divider span {
+      color: var(--muted); font-size: 0.75rem;
+      white-space: nowrap; letter-spacing: 1px;
+    }
+
+    /* Form */
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block;
+      font-size: 0.78rem; font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .input-wrap {
+      position: relative;
+    }
+    .input-wrap i {
+      position: absolute; left: 16px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted); font-size: 0.9rem;
+      pointer-events: none;
+    }
+    .input-wrap input {
+      width: 100%;
+      padding: 14px 16px 14px 44px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color 0.25s, background 0.25s;
+    }
+    .input-wrap input:focus {
+      border-color: var(--accent);
+      background: rgba(232,148,58,0.05);
+    }
+    .input-wrap input::placeholder { color: #444; }
+
+    /* Toggle password eye */
+    .eye-toggle {
+      position: absolute; right: 14px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted); cursor: pointer;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .eye-toggle:hover { color: var(--accent); }
+
+    /* Submit */
+    .btn-login {
+      width: 100%; padding: 15px;
+      background: linear-gradient(135deg, var(--accent), #d4782a);
+      color: #0d0d0d;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.95rem; font-weight: 600;
+      border: none; border-radius: 12px;
+      cursor: pointer; margin-top: 8px;
+      letter-spacing: 0.5px;
+      transition: opacity 0.25s, transform 0.2s, box-shadow 0.25s;
+      box-shadow: 0 6px 20px rgba(232,148,58,0.3);
+    }
+    .btn-login:hover {
+      opacity: 0.92; transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(232,148,58,0.45);
+    }
+    .btn-login:active { transform: translateY(0); }
+
+    /* Footer links */
+    .form-footer {
+      text-align: center;
+      margin-top: 24px;
+      font-size: 0.83rem;
+      color: var(--muted);
+    }
+    .form-footer a {
+      color: var(--accent);
+      text-decoration: none; font-weight: 500;
+      transition: opacity 0.2s;
+    }
+    .form-footer a:hover { opacity: 0.8; text-decoration: underline; }
+
+    /* Role badge */
+    .role-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(232,148,58,0.12);
+      color: var(--accent);
+      border: 1px solid rgba(232,148,58,0.25);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+
+    @media(max-width:480px) {
+      .card { padding: 36px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="welcome.html" class="back-link">
+    <i class="fa fa-arrow-left"></i> Back to Home
+  </a>
+
+  <div class="card">
+    <div class="brand">
+      <div class="brand-icon">🍛</div>
+      <div class="role-badge"><i class="fa fa-user"></i> CUSTOMER</div>
+      <h1>Mommy's <span>Kitchen</span></h1>
+      <p>Sign in to place your order</p>
+    </div>
+
+    <div class="divider"><span>LOGIN TO CONTINUE</span></div>
+
+    <!-- UPDATE action to match your original form action -->
+    <form action="CViewMsg.jsp" method="post">
+
+      <div class="form-group">
+        <label>Username</label>
+        <div class="input-wrap">
+          <i class="fa fa-user"></i>
+          <input type="text" name="cuname" placeholder="Enter your username" required/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <div class="input-wrap">
+          <i class="fa fa-lock"></i>
+          <input type="password" name="cpword" id="passField" placeholder="Enter your password" required/>
+          <i class="fa fa-eye eye-toggle" id="eyeIcon" onclick="togglePass()"></i>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-login">
+        <i class="fa fa-right-to-bracket"></i> &nbsp;Login & Order
+      </button>
+    </form>
+
+    <div class="form-footer">
+      New here? &nbsp;<a href="cinput1.html">Create an Account</a>
+    </div>
+    <div class="form-footer" style="margin-top:10px;">
+      Are you a manager? &nbsp;<a href="Mlogin.html">Manager Login →</a>
+    </div>
+  </div>
+
+  <script>
+    function togglePass() {
+      const f = document.getElementById('passField');
+      const e = document.getElementById('eyeIcon');
+      if (f.type === 'password') {
+        f.type = 'text';
+        e.classList.replace('fa-eye', 'fa-eye-slash');
+      } else {
+        f.type = 'password';
+        e.classList.replace('fa-eye-slash', 'fa-eye');
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manager Registration | Mommy's Kitchen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:      #0d0d0d;
+      --surface: #1a1a1a;
+      --border:  rgba(255,255,255,0.08);
+      --accent:  #e8943a;
+      --red:     #c0392b;
+      --text:    #f0f0f0;
+      --muted:   #777;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg); color: var(--text);
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 30px 20px; position: relative; overflow: hidden;
+    }
+
+    body::before, body::after {
+      content: ''; position: fixed; border-radius: 50%;
+      filter: blur(90px); opacity: 0.15; pointer-events: none; z-index: 0;
+    }
+    body::before {
+      width: 500px; height: 500px; background: var(--red);
+      top: -160px; right: -160px;
+    }
+    body::after {
+      width: 400px; height: 400px; background: var(--accent);
+      bottom: -120px; left: -120px;
+    }
+
+    .back-link {
+      position: fixed; top: 24px; left: 28px; z-index: 10;
+      color: var(--muted); text-decoration: none;
+      font-size: 0.85rem; display: flex; align-items: center; gap: 6px;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px; padding: 44px 40px;
+      width: 100%; max-width: 480px;
+      position: relative; z-index: 1;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    }
+
+    /* Progress */
+    .progress-wrap { margin-bottom: 28px; }
+    .progress-label {
+      display: flex; justify-content: space-between;
+      font-size: 0.72rem; color: var(--muted);
+      margin-bottom: 8px; letter-spacing: 0.5px;
+    }
+    .progress-label span.active { color: #e74c3c; font-weight: 600; }
+    .progress-track {
+      height: 4px; background: var(--border); border-radius: 4px; overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%; width: 100%;
+      background: linear-gradient(90deg, var(--red), var(--accent));
+      border-radius: 4px;
+    }
+
+    /* Steps */
+    .steps {
+      display: flex; justify-content: center;
+      gap: 12px; margin-bottom: 24px; align-items: center;
+    }
+    .step { display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: var(--muted); }
+    .step-dot {
+      width: 26px; height: 26px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; font-weight: 700;
+      background: var(--border); color: var(--muted);
+    }
+    .step.done .step-dot { background: rgba(46,213,115,0.15); color: #2ed573; }
+    .step.active .step-dot { background: linear-gradient(135deg, var(--red), #922b21); color: #fff; }
+    .step.active { color: var(--text); font-weight: 500; }
+    .step-line { width: 30px; height: 1px; background: var(--border); }
+
+    /* Brand */
+    .brand { text-align: center; margin-bottom: 22px; }
+    .brand-icon {
+      width: 58px; height: 58px;
+      background: linear-gradient(135deg, var(--red), #922b21);
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin: 0 auto 10px;
+      box-shadow: 0 8px 24px rgba(192,57,43,0.35);
+    }
+    .brand h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; }
+    .brand h2 span { color: var(--accent); }
+    .brand p { color: var(--muted); font-size: 0.8rem; margin-top: 4px; }
+
+    /* Section label */
+    .section-label {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--muted);
+      margin: 20px 0 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .section-label::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+    .section-label i { color: var(--accent); }
+
+    /* Form */
+    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-group { margin-bottom: 14px; }
+    .form-group label {
+      display: block; font-size: 0.72rem; font-weight: 500;
+      color: var(--muted); margin-bottom: 6px;
+      letter-spacing: 0.5px; text-transform: uppercase;
+    }
+    .input-wrap { position: relative; }
+    .input-wrap i.ico {
+      position: absolute; left: 14px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted); font-size: 0.82rem; pointer-events: none;
+    }
+    .input-wrap input,
+    .input-wrap textarea {
+      width: 100%; padding: 12px 16px 12px 40px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 12px; color: var(--text);
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.88rem; outline: none;
+      transition: border-color 0.25s, background 0.25s;
+    }
+    .input-wrap textarea {
+      resize: none; height: 72px;
+      padding-top: 11px; line-height: 1.5;
+    }
+    .input-wrap input:focus,
+    .input-wrap textarea:focus {
+      border-color: var(--red);
+      background: rgba(192,57,43,0.04);
+    }
+    .input-wrap input::placeholder,
+    .input-wrap textarea::placeholder { color: #3a3a3a; }
+
+    /* Bank info box */
+    .bank-box {
+      background: rgba(232,148,58,0.05);
+      border: 1px solid rgba(232,148,58,0.15);
+      border-radius: 12px; padding: 12px 14px;
+      margin-bottom: 16px;
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .bank-box i { color: var(--accent); margin-top: 2px; font-size: 0.85rem; }
+    .bank-box p { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+    .bank-box p strong { color: var(--text); }
+
+    /* Submit */
+    .btn-register {
+      width: 100%; padding: 15px;
+      background: linear-gradient(135deg, #2ed573, #1abc9c);
+      color: #0d0d0d;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.95rem; font-weight: 700;
+      border: none; border-radius: 12px;
+      cursor: pointer; margin-top: 10px; letter-spacing: 0.5px;
+      transition: opacity 0.25s, transform 0.2s, box-shadow 0.25s;
+      box-shadow: 0 6px 20px rgba(46,213,117,0.25);
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-register:hover {
+      opacity: 0.9; transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(46,213,117,0.4);
+    }
+    .btn-register:active { transform: translateY(0); }
+
+    .form-foot {
+      text-align: center; margin-top: 18px;
+      font-size: 0.82rem; color: var(--muted);
+    }
+    .form-foot a { color: var(--accent); text-decoration: none; font-weight: 500; }
+    .form-foot a:hover { text-decoration: underline; }
+
+    @media (max-width: 480px) {
+      .card { padding: 32px 18px; }
+      .row-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="input1.html" class="back-link">
+    <i class="fa fa-arrow-left"></i> Back to Step 1
+  </a>
+
+  <div class="card">
+
+    <!-- Progress -->
+    <div class="progress-wrap">
+      <div class="progress-label">
+        <span>Step 1 — Account Info ✓</span>
+        <span class="active">Step 2 — Contact & Banking</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill"></div></div>
+    </div>
+
+    <!-- Steps -->
+    <div class="steps">
+      <div class="step done">
+        <div class="step-dot"><i class="fa fa-check" style="font-size:0.65rem"></i></div>
+        Account
+      </div>
+      <div class="step-line"></div>
+      <div class="step active">
+        <div class="step-dot">2</div>
+        Contact & Banking
+      </div>
+    </div>
+
+    <div class="brand">
+      <div class="brand-icon">🏦</div>
+      <h2>Almost <span>Done!</span></h2>
+      <p>Contact info & bank details for payouts</p>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="section-label"><i class="fa fa-address-book"></i> Contact Information</div>
+
+    <form action="reg2" method="post">
+
+      <div class="form-group">
+        <label>Email Address</label>
+        <div class="input-wrap">
+          <i class="fa fa-envelope ico"></i>
+          <input type="email" name="mid" placeholder="manager@example.com" required/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Phone Number</label>
+        <div class="input-wrap">
+          <i class="fa fa-phone ico"></i>
+          <input type="tel" name="mob" placeholder="+91 98765 43210" required/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Location / Area</label>
+        <div class="input-wrap">
+          <i class="fa fa-map-pin ico"></i>
+          <input type="text" name="loc" placeholder="e.g. Bandra, Mumbai" required/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Full Address</label>
+        <div class="input-wrap">
+          <i class="fa fa-location-dot ico" style="top:16px;transform:none;"></i>
+          <textarea name="addr" placeholder="House/Flat no., Street, City, Pincode" required></textarea>
+        </div>
+      </div>
+
+      <!-- Bank Section -->
+      <div class="section-label"><i class="fa fa-building-columns"></i> Bank Details</div>
+
+      <div class="bank-box">
+        <i class="fa fa-shield-halved"></i>
+        <p><strong>Secure & Encrypted</strong> — Your bank details are used only for processing payouts. They are stored securely.</p>
+      </div>
+
+      <div class="row-2">
+        <div class="form-group">
+          <label>Account Number</label>
+          <div class="input-wrap">
+            <i class="fa fa-credit-card ico"></i>
+            <input type="text" name="accno" placeholder="XXXX XXXX XXXX" required/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>IFSC Code</label>
+          <div class="input-wrap">
+            <i class="fa fa-hashtag ico"></i>
+            <input type="text" name="ifsc" placeholder="e.g. SBIN0001234"
+                   style="text-transform:uppercase" required/>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-register">
+        <i class="fa fa-check-circle"></i> Complete Registration
+      </button>
+    </form>
+
+    <div class="form-foot">
+      Already registered? &nbsp;<a href="Mlogin.html">Sign In</a>
+    </div>
+  </div>
+
+</body>
+</html>

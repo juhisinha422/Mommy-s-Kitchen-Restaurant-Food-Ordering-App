@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add Dish | Mommy's Kitchen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    :root { --bg:#0d0d0d; --surface:#1a1a1a; --border:rgba(255,255,255,0.08); --accent:#e8943a; --red:#c0392b; --text:#f0f0f0; --muted:#777; }
+    body { font-family:'Poppins',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:30px 20px; position:relative; overflow:hidden; }
+    body::before, body::after { content:''; position:fixed; border-radius:50%; filter:blur(90px); opacity:0.13; pointer-events:none; z-index:0; }
+    body::before { width:500px; height:500px; background:var(--red); top:-160px; right:-160px; }
+    body::after  { width:400px; height:400px; background:var(--accent); bottom:-120px; left:-120px; }
+    .back-link { position:fixed; top:24px; left:28px; z-index:10; color:var(--muted); text-decoration:none; font-size:0.85rem; display:flex; align-items:center; gap:6px; transition:color 0.2s; }
+    .back-link:hover { color:var(--accent); }
+    .card { background:var(--surface); border:1px solid var(--border); border-radius:24px; padding:44px 40px; width:100%; max-width:500px; position:relative; z-index:1; box-shadow:0 30px 80px rgba(0,0,0,0.5); }
+    .brand { text-align:center; margin-bottom:28px; }
+    .brand-icon { width:60px; height:60px; background:linear-gradient(135deg,var(--red),#922b21); border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:1.5rem; margin:0 auto 12px; box-shadow:0 8px 24px rgba(192,57,43,0.35); }
+    .brand h2 { font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:700; }
+    .brand h2 span { color:var(--accent); }
+    .brand p { color:var(--muted); font-size:0.82rem; margin-top:5px; }
+    .role-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(192,57,43,0.12); color:#e74c3c; border:1px solid rgba(192,57,43,0.25); border-radius:20px; padding:4px 14px; font-size:0.72rem; font-weight:600; letter-spacing:0.5px; margin-bottom:10px; }
+    .divider { display:flex; align-items:center; gap:12px; margin-bottom:22px; }
+    .divider::before, .divider::after { content:''; flex:1; height:1px; background:var(--border); }
+    .divider span { color:var(--muted); font-size:0.72rem; letter-spacing:1px; }
+    .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .form-group { margin-bottom:16px; }
+    .form-group label { display:block; font-size:0.75rem; font-weight:500; color:var(--muted); margin-bottom:7px; letter-spacing:0.5px; text-transform:uppercase; }
+    .input-wrap { position:relative; }
+    .input-wrap i.ico { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--muted); font-size:0.85rem; pointer-events:none; }
+    .input-wrap input, .input-wrap select { width:100%; padding:13px 16px 13px 40px; background:rgba(255,255,255,0.04); border:1px solid var(--border); border-radius:12px; color:var(--text); font-family:'Poppins',sans-serif; font-size:0.9rem; outline:none; transition:border-color 0.25s,background 0.25s; }
+    .input-wrap select option { background:var(--surface); }
+    .input-wrap input:focus, .input-wrap select:focus { border-color:var(--red); background:rgba(192,57,43,0.04); }
+    .input-wrap input::placeholder { color:#3a3a3a; }
+    .btn-add { width:100%; padding:15px; background:linear-gradient(135deg,var(--red),#922b21); color:#fff; font-family:'Poppins',sans-serif; font-size:0.95rem; font-weight:700; border:none; border-radius:12px; cursor:pointer; margin-top:10px; letter-spacing:0.5px; transition:opacity 0.25s,transform 0.2s,box-shadow 0.25s; box-shadow:0 6px 20px rgba(192,57,43,0.3); display:flex; align-items:center; justify-content:center; gap:8px; }
+    .btn-add:hover { opacity:0.9; transform:translateY(-2px); }
+    @media(max-width:480px) { .card{padding:32px 18px;} .row-2{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+  <a href="login_Success.jsp" class="back-link"><i class="fa fa-arrow-left"></i> Back to Dashboard</a>
+  <div class="card">
+    <div class="brand">
+      <div class="brand-icon">🍽️</div>
+      <div class="role-badge"><i class="fa fa-user-tie"></i> &nbsp;MANAGER</div>
+      <h2>Add a <span>New Dish</span></h2>
+      <p>Fill in the details to add a dish to the menu</p>
+    </div>
+    <div class="divider"><span>DISH DETAILS</span></div>
+    <form action="finaldish" method="post">
+      <div class="form-group">
+        <label>Dish Name</label>
+        <div class="input-wrap">
+          <i class="fa fa-bowl-food ico"></i>
+          <input type="text" name="dName" placeholder="e.g. Butter Chicken" required/>
+        </div>
+      </div>
+      <div class="row-2">
+        <div class="form-group">
+          <label>Price (Rs.)</label>
+          <div class="input-wrap">
+            <i class="fa fa-tag ico"></i>
+            <input type="number" name="dPrice" placeholder="e.g. 250" required/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <div class="input-wrap">
+            <i class="fa fa-phone ico"></i>
+            <input type="tel" name="phno" placeholder="9876543210" required/>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Time Period Available</label>
+        <div class="input-wrap">
+          <i class="fa fa-clock ico"></i>
+          <input type="text" name="tpa" placeholder="e.g. 9AM - 10PM" required/>
+        </div>
+      </div>
+      <div class="row-2">
+        <div class="form-group">
+          <label>Delivery Option</label>
+          <div class="input-wrap">
+            <i class="fa fa-truck ico"></i>
+            <select name="delivery">
+              <option value="yes">Available</option>
+              <option value="no">Not Available</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Availability</label>
+          <div class="input-wrap">
+            <i class="fa fa-circle-check ico"></i>
+            <select name="availability">
+              <option value="yes">In Stock</option>
+              <option value="no">Out of Stock</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn-add">
+        <i class="fa fa-plus-circle"></i> Add Dish to Menu
+      </button>
+    </form>
+  </div>
+</body>
+</html>
