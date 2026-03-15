@@ -239,4 +239,5 @@ welcome.html
 
 ## 👩‍💻 Author
 **Juhi Sinha** — DevOps Engineer 
+
 Deployed on AWS EC2 | Apache Tomcat 9 | MySQL 8
