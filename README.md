@@ -238,5 +238,5 @@ welcome.html
 ---
 
 ## 👩‍💻 Author
-**Anamika Hazari** — Full Stack Java Web App  
+**Juhi Sinha** — DevOps Engineer 
 Deployed on AWS EC2 | Apache Tomcat 9 | MySQL 8
