@@ -214,6 +214,18 @@ welcome.html
 
 ---
 
+# Check all customers
+sudo mysql -e "USE mommyskitchen; SELECT CUNAME, CFNAME, CLNAME, CMID, CMOB FROM Client19;"
+
+# Check all managers
+sudo mysql -e "USE mommyskitchen; SELECT UNAME, FNAME, LNAME, MID, MOB FROM Momchef;"
+
+# Check all dishes
+sudo mysql -e "USE mommyskitchen; SELECT * FROM Dish19;"
+
+# Check all orders
+sudo mysql -e "USE mommyskitchen; SELECT * FROM Orders;"
+
 ## ⚠️ Common Issues & Fixes
 
 | Issue | Fix |
