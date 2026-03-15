@@ -1,6 +1,7 @@
 # 🍛 Mommy's Kitchen — Restaurant Food Ordering App
 
 A full-stack Java Web Application built with **JSP, Servlets, MySQL** and deployed on **Apache Tomcat 9** on **AWS EC2 Ubuntu**.
+(Recreated my College Days Project)
 
 ---
 
