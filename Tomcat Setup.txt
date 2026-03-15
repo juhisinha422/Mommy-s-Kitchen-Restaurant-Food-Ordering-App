@@ -1,0 +1,14 @@
+Tomcat Setup.txt
+
+sudo apt update
+sudo apt upgrade -y
+sudo apt install openjdk-17-jdk -y
+sudo apt install git -y
+wget https://downloads.apache.org/tomcat/tomcat-9/v9.0.91/bin/apache-tomcat-9.0.91.tar.gz
+tar -xvzf apache-tomcat-9.0.91.tar.gz
+
+cd tomcat/bin
+chmod +x *.sh
+./startup.sh
+
+./shutdown.sh (to stop)
